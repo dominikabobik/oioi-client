@@ -1,0 +1,8 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+}
+.userBox {
+  border-bottom: 1px solid #ddd;
+}

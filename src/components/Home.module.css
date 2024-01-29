@@ -1,0 +1,32 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+.mainChat {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex: 1;
+}
+
+.bubbleWrapper {
+  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  flex: 1;
+  padding: 20px;
+}
+
+.usernameInput {
+  padding: 20px;
+  border-radius: 30px;
+  border: 1px solid #ddd;
+  flex: 1;
+}
+
+.leftBarWrapper {
+  padding: 20px;
+}
