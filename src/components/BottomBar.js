@@ -1,21 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import styles from "./BottomBar.module.css";
 import { socket } from "../socket";
 
 const BottomBar = ({ username }) => {
   const [message, setMessage] = useState("");
 
-  const handleSendMessage = (e) => {
-    e.preventDefault();
-    if ((message === undefined) | (message === null) | (message === "")) return;
-    socket.emit("message", {
-      text: message,
-      name: username,
-      id: `${socket.id}${Math.random()}`,
-      socketID: socket.id,
-    });
-    setMessage("");
-  };
+  const handleSendMessage = useCallback(
+    (e) => {
+      e.preventDefault();
+      if ((message === undefined) | (message === null) | (message === ""))
+        return;
+      socket.emit("message", {
+        text: message,
+        name: username,
+        id: `${socket.id}${Math.random()}`,
+        socketID: socket.id,
+      });
+      setMessage("");
+    },
+    [message, username]
+  );
 
   useEffect(() => {
     const enterHandler = async (event) => {
