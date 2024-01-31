@@ -28,7 +28,7 @@ const BottomBar = ({ username }) => {
     return () => {
       document.removeEventListener("keydown", enterHandler);
     };
-  }, [message]);
+  }, [message, handleSendMessage]);
 
   return (
     <div className={styles.wrapper}>

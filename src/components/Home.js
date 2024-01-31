@@ -13,29 +13,26 @@ const Home = () => {
 
   useEffect(() => {
     socket.on("messageResponse", (data) => setMessages([...messages, data]));
-  }, [socket, messages]);
+  }, [messages]);
 
   useEffect(() => {
     listRef.current?.lastElementChild?.scrollIntoView();
   }, [messages]);
 
-  const onConnectButtonClick = useCallback(async () => {
+  function onConnectButtonClick() {
     setIsDisabled(true);
-    async function connection() {
-      socket.auth = { username };
-      await socket.connect((err) => {
-        if (err) {
-          // an error has occurred
-          console.log("Error: ", err);
-        } else {
-          // the connection was successfully established
-          console.log("Connection OK");
-        }
-      });
-    }
-    await connection();
+    socket.auth = { username };
+    socket.connect((err) => {
+      if (err) {
+        // an error has occurred
+        console.log("Error: ", err);
+      } else {
+        // the connection was successfully established
+        console.log("Connection OK");
+      }
+    });
     console.log("End of a connect callback");
-  }, [username]);
+  }
 
   return (
     <div className={styles.wrapper}>

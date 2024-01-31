@@ -1,6 +1,4 @@
-import socketIO from "socket.io-client";
 import Home from "./components/Home";
-import Username from "./components/Username";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
