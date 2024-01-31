@@ -8,7 +8,7 @@ const UsersBar = () => {
   useEffect(() => {
     async function userList() {
       socket.on("users", (users) => {
-        console.log("UDSERS", users);
+        console.log("USERS", users);
         setAllUsers(users);
       });
     }
