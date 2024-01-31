@@ -7,7 +7,7 @@ import { io } from "socket.io-client";
 // const socket = socketIO.connect("http://localhost:4000");
 //const URL = "http://localhost:4000";
 
-const URL = "http://oioi-server.azurewebsites.net";
+const URL = "https://oioi-server.azurewebsites.net";
 export const socket = io(URL, {
   autoConnect: false,
   withCredentials: true,
