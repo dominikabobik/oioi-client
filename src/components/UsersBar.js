@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 import styles from "./UsersBar.module.css";
-import { socket } from "../socket";
 import { useGlobalContext } from "../helpers/Context";
 
 const UsersBar = ({ users }) => {
@@ -12,11 +11,14 @@ const UsersBar = ({ users }) => {
     setAllUsers(newArray);
   }, [users, setAllUsers]);
 
-  const onUsernameClick = useCallback((user) => {
-    globalContext.setCurrentChat(user.username);
-    globalContext.setCurrentChatId(user.socketId);
-    console.log("Chat changed");
-  }, []);
+  const onUsernameClick = useCallback(
+    (user) => {
+      globalContext.setCurrentChat(user.username);
+      globalContext.setCurrentChatId(user.socketId);
+      console.log("Chat changed");
+    },
+    [globalContext]
+  );
 
   return (
     <div className={styles.wrapper}>

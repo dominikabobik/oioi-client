@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Home from "./components/Home.js";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { socket } from "./socket.js";
@@ -36,7 +36,7 @@ const App = () => {
     return () => {
       socket.off("users", onUsers);
     };
-  }, []);
+  }, [globalMessageMap]);
 
   useEffect(() => {
     function onUserDisconnected(value) {
@@ -48,7 +48,7 @@ const App = () => {
     return () => {
       socket.off("user-disconnected", onUserDisconnected);
     };
-  }, []);
+  }, [globalMessageMap]);
 
   useEffect(() => {
     function onPrivateMessage(data) {
@@ -112,6 +112,7 @@ const App = () => {
       socket.off("private-message");
     };
   }, [
+    username,
     currentChatId,
     globalMessageMap,
     setCurrentChatId,
