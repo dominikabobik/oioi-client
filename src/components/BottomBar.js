@@ -1,8 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 import styles from "./BottomBar.module.css";
 import { socket } from "../socket";
+import { useGlobalContext } from "../helpers/Context";
+import { v4 as uuidv4 } from "uuid";
 
 const BottomBar = ({ username }) => {
+  const globalContext = useGlobalContext();
   const [message, setMessage] = useState("");
 
   const handleSendMessage = useCallback(
@@ -10,15 +13,17 @@ const BottomBar = ({ username }) => {
       e.preventDefault();
       if ((message === undefined) | (message === null) | (message === ""))
         return;
-      socket.emit("message", {
+      socket.emit("private-message", {
         text: message,
-        name: username,
-        id: `${socket.id}${Math.random()}`,
-        socketID: socket.id,
+        fromName: username,
+        messageId: `${socket.id}${uuidv4()}`,
+        fromId: socket.id,
+        toId: globalContext.currentChatId,
+        toName: globalContext.currentChat,
       });
       setMessage("");
     },
-    [message, username]
+    [message, username, globalContext]
   );
 
   useEffect(() => {

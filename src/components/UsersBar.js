@@ -1,26 +1,35 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "./UsersBar.module.css";
 import { socket } from "../socket";
+import { useGlobalContext } from "../helpers/Context";
 
-const UsersBar = () => {
-  const [allUsers, setAllUsers] = useState([]);
+const UsersBar = ({ users }) => {
+  const globalContext = useGlobalContext();
+  const [allUsers, setAllUsers] = useState(users);
 
   useEffect(() => {
-    async function userList() {
-      socket.on("users", (users) => {
-        console.log("USERS", users);
-        setAllUsers(users);
-      });
-    }
-    userList();
+    let newArray = users;
+    setAllUsers(newArray);
+  }, [users, setAllUsers]);
+
+  const onUsernameClick = useCallback((user) => {
+    globalContext.setCurrentChat(user.username);
+    globalContext.setCurrentChatId(user.socketId);
+    console.log("Chat changed");
   }, []);
 
   return (
     <div className={styles.wrapper}>
+      <h3>Current Chat: </h3>
+      <div>{globalContext.currentChat}</div>
       <div>My contacts</div>
       {allUsers.map((user) => {
         return (
-          <div key={user.socketId} className={styles.userBox}>
+          <div
+            key={user.socketId}
+            className={styles.userBox}
+            onClick={() => onUsernameClick(user)}
+          >
             {user.username}
           </div>
         );

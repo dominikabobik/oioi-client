@@ -5,8 +5,9 @@ import { io } from "socket.io-client";
 //   process.env.NODE_ENV === "production" ? undefined : "http://localhost:4000";
 
 // const socket = socketIO.connect("http://localhost:4000");
-//const URL = "http://localhost:4000";
-
+// Development V
+// const URL = "http://localhost:4000";
+// Production V
 const URL = "https://oioi-server.azurewebsites.net";
 export const socket = io(URL, {
   autoConnect: false,
