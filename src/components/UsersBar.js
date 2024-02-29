@@ -16,26 +16,42 @@ const UsersBar = ({ users }) => {
       globalContext.setCurrentChat(user.username);
       globalContext.setCurrentChatId(user.socketId);
       console.log("Chat changed");
+      const index = globalContext.users.findIndex(
+        (e) => e.socketId === user.socketId
+      );
+      globalContext.users[index].newMessage = false;
+      globalContext.setUsers([...globalContext.users]);
     },
     [globalContext]
   );
 
   return (
     <div className={styles.wrapper}>
-      <h3>Current Chat: </h3>
-      <div>{globalContext.currentChat}</div>
-      <div>My contacts</div>
-      {allUsers.map((user) => {
-        return (
-          <div
-            key={user.socketId}
-            className={styles.userBox}
-            onClick={() => onUsernameClick(user)}
-          >
-            {user.username}
-          </div>
-        );
-      })}
+      {allUsers
+        .sort((a, b) => {
+          if (a.username === globalContext.username) {
+            return -1;
+          }
+        })
+        .map((user) => {
+          return (
+            <div
+              key={user.socketId}
+              className={styles.userBox}
+              style={{
+                backgroundColor:
+                  globalContext.currentChatId === user.socketId
+                    ? "#f5f5f5"
+                    : "",
+                fontWeight: user.newMessage === true ? "bold" : "",
+              }}
+              onClick={() => onUsernameClick(user)}
+            >
+              {user.username}
+              {user.username === globalContext.username ? " (you)" : ""}
+            </div>
+          );
+        })}
     </div>
   );
 };

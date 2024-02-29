@@ -3,6 +3,7 @@
   flex-direction: row;
   width: 100%;
   gap: 10px;
+  border-left: 1px solid #ddd;
 }
 
 .textInput {
@@ -10,12 +11,13 @@
   border-radius: 30px;
   border: 1px solid #ddd;
   flex: 1;
+  margin-left: 10px;
 }
 
 .sendButton {
   border-radius: 50%;
-  background-color: rgb(47, 149, 245);
-  border: 0px solid #ddd;
+  background-color: rgba(47, 149, 245, 0.727);
+  border: 1px solid #ddd;
   transition: all 250ms ease-in-out;
   margin-left: auto;
   width: 50px;

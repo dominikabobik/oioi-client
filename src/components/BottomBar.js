@@ -50,7 +50,7 @@ const BottomBar = ({ username }) => {
         className={styles.textInput}
       />
       <button onClick={handleSendMessage} className={styles.sendButton}>
-        Send
+        {`>`}
       </button>
     </div>
   );
