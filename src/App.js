@@ -53,9 +53,12 @@ const App = () => {
   ]);
 
   useEffect(() => {
-    function onUserDisconnected(value) {
+    function onUserDisconnected(id) {
       console.log("removing a user");
-      globalMessageMap.delete(value);
+      globalMessageMap.delete(id);
+      let index = users.findIndex((e) => e.socketId === id);
+      users.splice(index, 1);
+      setUsers([...users]);
     }
     socket.on("user-disconnected", onUserDisconnected);
 
