@@ -35,7 +35,7 @@ const Home = ({ users, currentMessages }) => {
       }
     });
     console.log("End of a connect callback");
-  }, [username, globalContext, socket]);
+  }, [username]);
 
   return (
     <div className={styles.wrapper}>

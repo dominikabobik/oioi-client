@@ -31,6 +31,10 @@ const UsersBar = ({ users }) => {
         .sort((a, b) => {
           if (a.username === globalContext.username) {
             return -1;
+          } else if (a.username > b.username) {
+            return 1;
+          } else {
+            return 0;
           }
         })
         .map((user) => {

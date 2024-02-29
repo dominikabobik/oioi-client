@@ -17,7 +17,7 @@ const App = () => {
     function onUsers(value) {
       console.log("Setting all users");
       value.forEach((user) => {
-        if (globalMessageMap[user.socketId] === undefined) {
+        if (globalMessageMap.get(user.socketId) === undefined) {
           console.log("Adding new user to the map: ", user);
           setGlobalMessageMap(
             new Map(
@@ -47,16 +47,15 @@ const App = () => {
     users,
     setUsers,
     username,
-    socket,
     setCurrentChat,
     setCurrentChatId,
   ]);
 
   useEffect(() => {
-    function onUserDisconnected(id) {
-      console.log("removing a user");
-      globalMessageMap.delete(id);
-      let index = users.findIndex((e) => e.socketId === id);
+    function onUserDisconnected(value) {
+      console.log("removing a user:", value);
+      globalMessageMap.delete(value);
+      let index = users.findIndex((e) => e.socketId === value);
       users.splice(index, 1);
       setUsers([...users]);
     }
@@ -65,7 +64,7 @@ const App = () => {
     return () => {
       socket.off("user-disconnected", onUserDisconnected);
     };
-  }, [globalMessageMap]);
+  }, [globalMessageMap, users, setUsers, setGlobalMessageMap]);
 
   useEffect(() => {
     function onPrivateMessage(data) {
@@ -93,7 +92,6 @@ const App = () => {
           messages = globalMessageMap.get(data.fromId).messages;
         }
         const index = users.findIndex((e) => e.socketId === key);
-        console.log("index:", index, "USERS list:", users);
         if (index > 0) {
           users[index].newMessage = true;
           setUsers([...users]);
@@ -107,6 +105,7 @@ const App = () => {
       if (globalMessageMap.get(currentChatId) !== undefined) {
         setCurrentMessages(globalMessageMap.get(currentChatId).messages);
       }
+      console.log("Mesage map private: ", globalMessageMap);
     }
     socket.on("private-message", onPrivateMessage);
 
